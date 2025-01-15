@@ -9,14 +9,17 @@ plugins {
 
 android {
     namespace = "com.momen.orangetask"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.momen.orangetask"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
+
+        buildConfigField("String", "API_KEY", "\"AIzaSyDQ_GvbFbZHCvWDJN1EjHZsYaYHt6QTTRE\"")
+        buildConfigField("String", "BASE_URL", "\"https://www.googleapis.com/\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,7 +41,9 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        dataBinding = true
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -52,7 +57,10 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
 
     // Retrofit
-    implementation (libs.retrofit)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation (libs.okhttp)
+    implementation (libs.logging.interceptor)
 
     // Hilt
     implementation(libs.hilt.android)
