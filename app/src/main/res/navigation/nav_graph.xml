@@ -13,12 +13,20 @@
 
         <action
             android:id="@+id/action_HomeFragment_to_DetailsFragment"
-            app:destination="@id/DetailsFragment" />
+            app:destination="@id/DetailsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/DetailsFragment"
         android:name="com.momen.orangetask.ui.DetailsFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_details">
+
+        <argument
+            android:name="id"
+            app:argType="string" />
     </fragment>
 </navigation>

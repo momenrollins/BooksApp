@@ -1,6 +1,8 @@
 package com.momen.orangetask.utils
 
+import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import coil3.load
@@ -14,6 +16,11 @@ fun loadImage(view: ImageView, url: String?) {
         crossfade(true)
         placeholder(R.mipmap.ic_launcher_foreground)
     }
+}
+
+@BindingAdapter("app:visibleIf")
+fun ProgressBar.setVisibleIf(condition: Boolean) {
+    visibility = if (condition) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter("authorsText")

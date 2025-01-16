@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">OrangeTask</string>
-    <string name="first_fragment_label">Home Fragment</string>
-    <string name="second_fragment_label">Details Fragment</string>
+    <string name="first_fragment_label">Books List</string>
+    <string name="second_fragment_label">Book Details</string>
+    <string name="unknown_author">Unknown Author</string>
+    <string name="no_description">No Description Available</string>
+    <string name="unknown_date">Unknown Date</string>
 </resources>
