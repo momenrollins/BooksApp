@@ -18,8 +18,18 @@ class BooksViewModel @Inject constructor(
     private val _books = MutableLiveData<List<Book>>()
     val books: LiveData<List<Book>> = _books
 
-    private val _error = MutableLiveData<String>()
-    val error: LiveData<String> = _error
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?> = _error
+    fun onErrorMessageShown() {
+        _error.value = null
+    }
+
+    private val _noInternet = MutableLiveData<Boolean>()
+    val noInternet: LiveData<Boolean> = _noInternet
+
+    fun onNoInternetShown() {
+        _noInternet.value = false
+    }
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
@@ -35,7 +45,10 @@ class BooksViewModel @Inject constructor(
                     _error.value = "Error: ${response.message()}"
                 }
             } catch (e: Exception) {
-                _error.value = "Error: ${e.localizedMessage}"
+                if (e.message?.contains("Unable to resolve host") == true)
+                    _noInternet.value = true
+                else
+                    _error.value = "Error: ${e.localizedMessage}"
             } finally {
                 _loading.value = false
             }

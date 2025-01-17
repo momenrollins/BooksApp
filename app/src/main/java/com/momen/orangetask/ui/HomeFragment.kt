@@ -1,5 +1,6 @@
 package com.momen.orangetask.ui
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -48,7 +49,17 @@ class HomeFragment : Fragment() {
         }
 
         booksViewModel.error.observe(viewLifecycleOwner) { errorMessage ->
-            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+            if (errorMessage != null) {
+                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+                booksViewModel.onErrorMessageShown()
+            }
+        }
+
+        booksViewModel.noInternet.observe(viewLifecycleOwner) { noInternet ->
+            if (noInternet) {
+                showRetryDialog()
+                booksViewModel.onNoInternetShown()
+            }
         }
 
         binding.apply {
@@ -68,6 +79,17 @@ class HomeFragment : Fragment() {
         if (query.isNotEmpty()) {
             booksViewModel.searchBooks(query)
         }
+    }
+
+    private fun showRetryDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("No Internet")
+            .setMessage("Please check your connection and try again.")
+            .setPositiveButton("Retry") { _, _ ->
+                searchBooks()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
     override fun onDestroyView() {
